@@ -1,125 +1,92 @@
-Library Management System
-Library Management System
-Library Management System
-Library Management System
+# Library Management System
 
-A Library Management System built using C# and SQL Server to manage books, students, and authors efficiently. This project is designed to streamline library operations with a user-friendly interface and robust backend functionality.
+## Overview
+The **Library Management System** is a C# and SQL Server-based application designed to efficiently manage books, students, and authors. It streamlines library operations with a user-friendly interface and a robust backend for seamless data management.
 
-Features
-Book Management:
+## Features
 
-Add, update, and delete books.
+### **Book Management**
+- Add, update, and delete books.
+- Store book details such as ISBN, title, genre, publication year, price, and available copies.
+- Search for books by title.
 
-Store book details like ISBN, title, genre, publication year, price, and number of copies.
+### **Student Management**
+- Add, update, and delete student records.
+- Store student details including name, phone number, email, address, and birthdate.
+- Search for students by name.
 
-Search for books by title.
+### **Author Management**
+- Automatically link authors to books.
+- Add new authors if they don’t exist in the database.
 
-Student Management:
+### **User-Friendly Interface**
+- Developed using Windows Forms for a clean and intuitive experience.
+- Data is displayed in grids for easy viewing and editing.
 
-Add, update, and delete student records.
+### **Database Integration**
+- Uses **SQL Server** for data storage.
+- Implements **ADO.NET** for database connectivity.
+- Uses **parameterized queries** to prevent SQL injection and ensure security.
 
-Store student details like name, phone number, email, address, and birthdate.
+## Technologies Used
+- **Programming Language:** C#
+- **Frontend:** Windows Forms
+- **Backend:** ADO.NET
+- **Database:** SQL Server
+- **Tools:** Visual Studio, SQL Server Management Studio (SSMS)
 
-Search for students by name.
+## Database Schema
+The project consists of the following tables in the SQL Server database:
 
-Author Management:
+### **BOOK**
+| Column       | Data Type     | Constraints       |
+|-------------|--------------|------------------|
+| ISBN        | BIGINT       | PRIMARY KEY     |
+| Title       | NVARCHAR(100) | NOT NULL        |
+| Genre       | NVARCHAR(50)  | NOT NULL        |
+| PublishYear | INT          | NOT NULL        |
+| Price       | BIGINT       | NOT NULL        |
+| NumCopies   | INT          | NOT NULL        |
 
-Automatically link authors to books.
+### **STUDENT**
+| Column       | Data Type     | Constraints       |
+|-------------|--------------|------------------|
+| StudentID   | INT          | PRIMARY KEY     |
+| Name        | NVARCHAR(100) | NOT NULL        |
+| PhoneNumber | NVARCHAR(15)  | NOT NULL        |
+| Email       | NVARCHAR(100) | NOT NULL        |
+| Country     | NVARCHAR(50)  | NOT NULL        |
+| City        | NVARCHAR(50)  | NOT NULL        |
+| Street      | NVARCHAR(100) | NOT NULL        |
+| BirthYear   | INT          | NOT NULL        |
+| BirthMonth  | INT          | NOT NULL        |
+| BirthDay    | INT          | NOT NULL        |
+| Age         | INT          | NOT NULL        |
 
-Add new authors if they don’t already exist in the database.
+### **AUTHOR**
+| Column    | Data Type     | Constraints       |
+|----------|--------------|------------------|
+| AuthorID | INT          | PRIMARY KEY, IDENTITY(1,1) |
+| Name     | NVARCHAR(100) | NOT NULL        |
 
-User-Friendly Interface:
+### **WRITE (Many-to-Many Relationship between BOOK and AUTHOR)**
+| Column  | Data Type | Constraints |
+|---------|----------|-------------|
+| ISBN    | BIGINT   | FOREIGN KEY REFERENCES BOOK(ISBN) |
+| AuthorID | INT     | FOREIGN KEY REFERENCES AUTHOR(AuthorID) |
+| PRIMARY KEY | (ISBN, AuthorID) |
 
-Built using Windows Forms for a clean and intuitive experience.
+## Setup Instructions
 
-Data displayed in grids for easy viewing and editing.
+### **Prerequisites**
+- Install **Visual Studio** (Community edition is free).
+- Install **SQL Server** and **SQL Server Management Studio (SSMS)**.
 
-Database Integration:
+### **Database Setup**
+1. Create a new database named `Library` in SQL Server.
+2. Run the following SQL scripts to create the required tables:
 
-Uses SQL Server for data storage.
-
-Implements ADO.NET for database connectivity.
-
-Uses parameterized queries to prevent SQL injection and ensure security.
-
-Technologies Used
-Programming Language: C#
-
-Frontend: Windows Forms
-
-Backend: ADO.NET
-
-Database: SQL Server
-
-Tools: Visual Studio, SQL Server Management Studio (SSMS)
-
-Database Schema
-The project uses the following tables in the SQL Server database:
-
-BOOK:
-
-ISBN (Primary Key)
-
-Title
-
-Genre
-
-PublishYear
-
-Price
-
-NumCopies
-
-STUDENT:
-
-StudentID (Primary Key)
-
-Name
-
-PhoneNumber
-
-Email
-
-Country
-
-City
-
-Street
-
-BirthYear
-
-BirthMonth
-
-BirthDay
-
-Age
-
-AUTHOR:
-
-AuthorID (Primary Key)
-
-Name
-
-WRITE (Many-to-Many Relationship between BOOK and AUTHOR):
-
-ISBN (Foreign Key)
-
-AuthorID (Foreign Key)
-
-How to Set Up the Project
-Prerequisites
-Visual Studio: Install Visual Studio (Community edition is free).
-
-SQL Server: Install SQL Server and SQL Server Management Studio (SSMS).
-
-Database Setup:
-
-Create a database named Library in SQL Server.
-
-Run the following SQL scripts to create the required tables:
-
-sql
-Copy
+```sql
 CREATE TABLE BOOK (
     ISBN BIGINT PRIMARY KEY,
     Title NVARCHAR(100),
@@ -153,52 +120,23 @@ CREATE TABLE WRITE (
     AuthorID INT FOREIGN KEY REFERENCES AUTHOR(AuthorID),
     PRIMARY KEY (ISBN, AuthorID)
 );
-Steps to Run the Project
-Clone the repository or download the source code.
+```
 
-Open the project in Visual Studio.
+### **Running the Project**
+1. Clone the repository or download the source code.
+2. Open the project in **Visual Studio**.
+3. Update the connection string in the code to match your SQL Server instance:
 
-Update the connection string in the code to match your SQL Server instance:
-
-csharp
-Copy
+```csharp
 conn.ConnectionString = "data source = YOUR_SERVER_NAME; database = Library; integrated security = True";
-Build and run the project in Visual Studio.
+```
 
-Screenshots
-Main Dashboard
-Dashboard
+4. Build and run the project in Visual Studio.
 
-Book Management
-Book Management
 
-Student Management
-Student Management
+## Future Enhancements
+- Implement **user authentication** (e.g., librarian vs. student roles).
+- Add **book borrowing and return functionality**.
+- Generate **reports and analytics** (e.g., most borrowed books, overdue books).
+- Improve **UI/UX** with modern design elements.
 
-Future Enhancements
-Add user authentication (e.g., librarian vs. student roles).
-
-Implement book borrowing and return functionality.
-
-Add reports and analytics (e.g., most borrowed books, overdue books).
-
-Improve UI/UX with modern design elements.
-
-Contributing
-Contributions are welcome! If you'd like to contribute, please:
-
-Fork the repository.
-
-Create a new branch for your feature or bugfix.
-
-Submit a pull request.
-
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-Contact
-If you have any questions or suggestions, feel free to reach out:
-
-LinkedIn: Your LinkedIn Profile
-
-Email: your.email@example.com
