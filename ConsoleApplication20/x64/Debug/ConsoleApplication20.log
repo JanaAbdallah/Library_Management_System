@@ -1,0 +1,5 @@
+﻿  ConsoleApplication20.cpp
+  Rect.cpp
+  Generating Code...
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(1127,5): error MSB6006: "link.exe" exited with code 1168.
+LINK : fatal error LNK1168: cannot open C:\Users\janaa_9ia\source\repos\ConsoleApplication20\x64\Debug\ConsoleApplication20.exe for writing
